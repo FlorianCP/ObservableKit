@@ -10,10 +10,10 @@ import Foundation
 
 infix operator <- { associativity right precedence 90 }
 
-func <-<T>(left: Observable<T>, right: T?) {
+public func <-<T>(left: Observable<T>, right: T?) {
     left.value = right
 }
 
-func +=<T>(left: Observable<T>, right: Listener<T>) {
+public func +=<T>(left: Observable<T>, right: Listener<T>) {
     left.valueChangedEvent.addListener(right)
 }

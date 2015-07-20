@@ -8,11 +8,11 @@
 
 import UIKit
 
-class BindableTextField: UITextField {
+public class BindableTextField: UITextField {
     
     // MARK: Binding
     
-    var bindableText = Observable<String>()
+    public var bindableText = Observable<String>()
     
     private func setBindableText(text: String?) {
         if bindableText.value != text {
@@ -20,7 +20,7 @@ class BindableTextField: UITextField {
         }
     }
     
-    override var text: String? {
+    override public var text: String? {
         didSet {
             setBindableText(text)
         }
@@ -37,23 +37,23 @@ class BindableTextField: UITextField {
     
     // MARK: UITextFieldDelegate relay
     
-    weak var delegateRelay: UITextFieldDelegate?
+    public weak var delegateRelay: UITextFieldDelegate?
     
     // MARK: Lifecycle
     
-    override func awakeFromNib() {
+    override public func awakeFromNib() {
         super.awakeFromNib()
         delegate = self
         setupInternalBindings()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         delegate = self
         setupInternalBindings()
     }
     
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         delegate = self
         setupInternalBindings()
@@ -64,7 +64,7 @@ extension BindableTextField: UITextFieldDelegate {
     
     // MARK: UITextFieldDelegate
     
-    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+    public func textFieldShouldEndEditing(textField: UITextField) -> Bool {
         setBindableText(textField.text)
         if let del = delegateRelay where del.respondsToSelector(Selector("textFieldShouldEndEditing:")) {
             return del.textFieldShouldEndEditing!(textField)
@@ -72,12 +72,12 @@ extension BindableTextField: UITextFieldDelegate {
         return true
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    public func textFieldDidEndEditing(textField: UITextField) {
         setBindableText(textField.text)
         delegateRelay?.textFieldDidEndEditing?(textField)
     }
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         var shouldChange = true
         if let del = delegateRelay where del.respondsToSelector(Selector("textField:shouldChangeCharactersInRange:replacementString:")) {
             shouldChange = del.textField!(textField, shouldChangeCharactersInRange: range, replacementString: string)
@@ -93,7 +93,7 @@ extension BindableTextField: UITextFieldDelegate {
         return shouldChange
     }
     
-    func textFieldShouldClear(textField: UITextField) -> Bool {
+    public func textFieldShouldClear(textField: UITextField) -> Bool {
         setBindableText(textField.text)
         if let del = delegateRelay where del.respondsToSelector(Selector("textFieldShouldClear:")) {
             return del.textFieldShouldClear!(textField)
@@ -101,7 +101,7 @@ extension BindableTextField: UITextFieldDelegate {
         return true
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    public func textFieldShouldReturn(textField: UITextField) -> Bool {
         setBindableText(textField.text)
         if let del = delegateRelay where del.respondsToSelector(Selector("textFieldShouldReturn:")) {
             return del.textFieldShouldReturn!(textField)

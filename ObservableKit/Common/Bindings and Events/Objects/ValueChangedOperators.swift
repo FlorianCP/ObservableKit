@@ -8,6 +8,6 @@
 
 import Foundation
 
-func +=<T>(left: ValueChangedEvent<T>, right: Listener<T>) {
+public func +=<T>(left: ValueChangedEvent<T>, right: Listener<T>) {
     left.addListener(right)
 }

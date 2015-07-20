@@ -8,26 +8,27 @@
 
 import Foundation
 
-class Listener<T> {
-    typealias ValueChangedBlock = (oldValue: T?, newValue: T?) -> Void
+public class Listener<T> {
     
-    var key: String? = nil
-    weak var observer: AnyObject?
-    let action: ValueChangedBlock
+    public typealias ValueChangedBlock = (oldValue: T?, newValue: T?) -> Void
+    
+    public var key: String? = nil
+    public weak var observer: AnyObject?
+    public let action: ValueChangedBlock
     private let hash: String
     
-    init(key: String?, listener: AnyObject, action: ValueChangedBlock) {
+    public init(key: String?, listener: AnyObject, action: ValueChangedBlock) {
         self.key = key
         self.observer = listener
         self.action = action
         self.hash = NSUUID().UUIDString
     }
     
-    convenience init(_ listener: AnyObject, action: ValueChangedBlock) {
+    convenience public init(_ listener: AnyObject, action: ValueChangedBlock) {
         self.init(key: nil, listener: listener, action: action)
     }
     
-    func isEqual(otherListener: Listener<T>) -> Bool {
+    public func isEqual(otherListener: Listener<T>) -> Bool {
         return self.hash == otherListener.hash
     }
 }

@@ -8,15 +8,15 @@
 
 import Foundation
 
-class ValueChangedEvent<T> {
+public class ValueChangedEvent<T> {
     
-    typealias ValueChangedBlock = (oldValue: T?, newValue: T?) -> Void
+    public typealias ValueChangedBlock = (oldValue: T?, newValue: T?) -> Void
     
-    var listeners = [Listener<T>]()
+    public var listeners = [Listener<T>]()
     
-    init() {}
+    public init() {}
     
-    func addListener(key: String, listener: AnyObject, eventBlock: ValueChangedBlock) {
+    public func addListener(key: String, listener: AnyObject, eventBlock: ValueChangedBlock) {
         // Bail out if we already have added the listener
         guard hasListener(listener) == false else {
             return
@@ -25,7 +25,7 @@ class ValueChangedEvent<T> {
         listeners.append(Listener(key: key, listener: listener, action: eventBlock))
     }
     
-    func addListener(listener: AnyObject, eventBlock: ValueChangedBlock) {
+    public func addListener(listener: AnyObject, eventBlock: ValueChangedBlock) {
         // Bail out if we already have added the listener
         guard hasListener(listener) == false else {
             return
@@ -34,7 +34,7 @@ class ValueChangedEvent<T> {
         listeners.append(Listener(listener, action: eventBlock))
     }
     
-    func addListener(listener: Listener<T>) {
+    public func addListener(listener: Listener<T>) {
         // Bail out if we already have added the listener
         guard hasListener(listener) == false else {
             return
@@ -43,7 +43,7 @@ class ValueChangedEvent<T> {
         listeners.append(listener)
     }
     
-    func removeListener(listener: AnyObject) {
+    public func removeListener(listener: AnyObject) {
         clearStaleListeners()
         
         let foundListeners = listeners.filter { $0.observer!.isEqual(listener) }
@@ -57,7 +57,7 @@ class ValueChangedEvent<T> {
         listeners.removeAtIndex(i)
     }
     
-    func hasListener(listener: AnyObject) -> Bool {
+    public func hasListener(listener: AnyObject) -> Bool {
         clearStaleListeners()
         
         let foundListeners = listeners.filter { $0.observer!.isEqual(listener) }
@@ -67,7 +67,7 @@ class ValueChangedEvent<T> {
         return false
     }
     
-    func clearStaleListeners() {
+    public func clearStaleListeners() {
         for l in listeners {
             if l.observer == nil {
                 let index = listeners.indexOf { $0.isEqual(l) }
@@ -78,9 +78,9 @@ class ValueChangedEvent<T> {
         }
     }
     
-    var oldValue: T?
+    public var oldValue: T?
     
-    func trigger(key: String, newValue: T?) {
+    public func trigger(key: String, newValue: T?) {
         clearStaleListeners()
         
         let interestedListeners = listeners.filter { $0.key == nil || $0.key == key }

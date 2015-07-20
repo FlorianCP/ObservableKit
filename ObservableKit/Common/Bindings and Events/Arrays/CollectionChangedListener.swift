@@ -8,28 +8,28 @@
 
 import Foundation
 
-class CollectionListener<T> {
+public class CollectionListener<T> {
     
-    typealias Collection = [T]
-    typealias ValueChangedBlock = (oldValue: Collection, newValue: Collection) -> Void
+    public typealias Collection = [T]
+    public typealias ValueChangedBlock = (oldValue: Collection, newValue: Collection) -> Void
     
-    var key: String? = nil
-    weak var observer: AnyObject?
-    let action: ValueChangedBlock
+    public var key: String? = nil
+    public weak var observer: AnyObject?
+    public let action: ValueChangedBlock
     private let hash: String
     
-    init(key: String?, listener: AnyObject, action: ValueChangedBlock) {
+    public init(key: String?, listener: AnyObject, action: ValueChangedBlock) {
         self.key = key
         self.observer = listener
         self.action = action
         self.hash = NSUUID().UUIDString
     }
     
-    convenience init(_ listener: AnyObject, action: ValueChangedBlock) {
+    convenience public init(_ listener: AnyObject, action: ValueChangedBlock) {
         self.init(key: nil, listener: listener, action: action)
     }
     
-    func isEqual(otherListener: CollectionListener<T>) -> Bool {
+    public func isEqual(otherListener: CollectionListener<T>) -> Bool {
         return self.hash == otherListener.hash
     }
 }

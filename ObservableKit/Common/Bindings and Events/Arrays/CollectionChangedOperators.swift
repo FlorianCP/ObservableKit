@@ -8,6 +8,6 @@
 
 import Foundation
 
-func +=<T>(left: CollectionChangedEvent<T>, right: CollectionListener<T>) {
+public func +=<T>(left: CollectionChangedEvent<T>, right: CollectionListener<T>) {
     left.addListener(right)
 }

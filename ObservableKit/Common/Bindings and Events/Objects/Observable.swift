@@ -8,10 +8,10 @@
 
 import Foundation
 
-class Observable<T: Equatable> {
+public class Observable<T: Equatable> {
     
     private var _value: T?
-    var value: T? {
+    public var value: T? {
         get {
             return _value
         }
@@ -23,18 +23,18 @@ class Observable<T: Equatable> {
             }
         }
     }
-    let valueChangedEvent = ValueChangedEvent<T>()
-    let key = "value"
+    public let valueChangedEvent = ValueChangedEvent<T>()
+    public let key = "value"
     
-    init(_ initialValue: T?) {
+    public init(_ initialValue: T?) {
         _value = initialValue
     }
     
-    convenience init() {
+    convenience public init() {
         self.init(nil)
     }
     
-    func setValue(newValue: T?, forceEventTrigger: Bool) {
+    public func setValue(newValue: T?, forceEventTrigger: Bool) {
         if !forceEventTrigger {
             value = newValue
             return

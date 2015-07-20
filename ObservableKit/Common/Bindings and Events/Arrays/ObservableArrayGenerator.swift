@@ -13,11 +13,11 @@ public class ObservableArrayGenerator<T>: GeneratorType {
     private var index = -1
     private let array: ObservableArray<T>
     
-    init(array: ObservableArray<T>) {
+    public init(array: ObservableArray<T>) {
         self.array = array
     }
     
-    typealias Element = T
+    public typealias Element = T
     
     public func next() -> T? {
         index++

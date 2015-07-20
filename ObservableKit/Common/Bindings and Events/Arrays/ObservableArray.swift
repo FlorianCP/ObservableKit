@@ -10,15 +10,15 @@ import Foundation
 
 public class ObservableArray<T>: SequenceType {
     
-    private(set) var value: [T]
+    private(set) public var value: [T]
     
     // MARK: Lifecycle
     
-    init(_ initialValue: [T]) {
+    public init(_ initialValue: [T]) {
         value = initialValue
     }
     
-    convenience init() {
+    convenience public init() {
         self.init([])
     }
     
@@ -128,8 +128,8 @@ public class ObservableArray<T>: SequenceType {
     }
     
     // MARK: Bindings and Events
-    let key = "value"
-    let collectionChangedEvent = CollectionChangedEvent<T>()
+    public let key = "value"
+    public let collectionChangedEvent = CollectionChangedEvent<T>()
     
     func dispatchWillInsert(changedIndizes: [Int]) {
         collectionChangedEvent.oldValue = value
