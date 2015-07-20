@@ -1,6 +1,6 @@
 # ObservableKit
 
-ObservableKit is a framework written in Swift 2.0. It helps with reactive programming, as it provides simple mechanisms and objects to watch for object's value changes.
+ObservableKit is a framework written in Swift 2.0 with Xcode 7.0 beta 3. It helps with reactive programming, as it provides simple mechanisms and objects to watch for object's value changes.
 
 There are several other frameworks out there (like [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa), [SwiftBond](https://github.com/SwiftBond/Bond) and [Observable-Swift](https://github.com/slazyk/Observable-Swift)) which heavily inspired ObservableKit.
 However, at the current time of writing, I was not satisfied with either of them. ReactiveCocoa is great, but very heavyweight and presents a stiff entry-barrier. SwiftBond is also great, but at the time of writing only supported one Observer per observable object. Observable-Swift posed the same limitation.
