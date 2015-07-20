@@ -1,3 +1,5 @@
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
 # ObservableKit
 
 ObservableKit is a framework written in Swift 2.0 with Xcode 7.0 beta 3. It helps with reactive programming, as it provides simple mechanisms and objects to watch for object's value changes.
