@@ -12,7 +12,7 @@ public class BindableTextField: UITextField {
     
     // MARK: Binding
     
-    public var bindableText = Observable<String>()
+    public var bindableText = OptionalObservable<String>()
     
     private func setBindableText(text: String?) {
         if bindableText.value != text {
@@ -28,7 +28,7 @@ public class BindableTextField: UITextField {
     
     private func setupInternalBindings() {
         // Synchronize our bindableText property with our text property
-        bindableText += Listener(self) { [unowned self] oldVal, newVal in
+        bindableText += OptionalListener(self) { [unowned self] oldVal, newVal in
             if self.text != newVal {
                 self.text = newVal
             }

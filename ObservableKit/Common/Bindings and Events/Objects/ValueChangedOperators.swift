@@ -11,3 +11,7 @@ import Foundation
 public func +=<T>(left: ValueChangedEvent<T>, right: Listener<T>) {
     left.addListener(right)
 }
+
+public func +=<T>(left: OptionalValueChangedEvent<T>, right: OptionalListener<T>) {
+    left.addListener(right)
+}

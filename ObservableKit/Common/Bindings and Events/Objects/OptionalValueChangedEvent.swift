@@ -1,22 +1,20 @@
 //
 //  ValueChangedEvent.swift
-//  Loyalty Cards
+//  ObservableKit-iOS
 //
-//  Created by Florian Rath on 30.07.15.
+//  Created by Florian Rath on 16.07.15.
 //  Copyright © 2015 Codepool GmbH. All rights reserved.
 //
 
 import Foundation
 
-public class ValueChangedEvent<T> {
+public class OptionalValueChangedEvent<T> {
     
-    public typealias ValueChangedBlock = (oldValue: T, newValue: T) -> Void
+    public typealias ValueChangedBlock = (oldValue: T?, newValue: T?) -> Void
     
-    public var listeners = [Listener<T>]()
+    public var listeners = [OptionalListener<T>]()
     
-    public init(_ initialValue: T) {
-        oldValue = initialValue
-    }
+    public init() {}
     
     public func addListener(key: String, listener: AnyObject, eventBlock: ValueChangedBlock) {
         // Bail out if we already have added the listener
@@ -24,7 +22,7 @@ public class ValueChangedEvent<T> {
             return
         }
         
-        listeners.append(Listener(key: key, listener: listener, action: eventBlock))
+        listeners.append(OptionalListener(key: key, listener: listener, action: eventBlock))
     }
     
     public func addListener(listener: AnyObject, eventBlock: ValueChangedBlock) {
@@ -33,10 +31,10 @@ public class ValueChangedEvent<T> {
             return
         }
         
-        listeners.append(Listener(listener, action: eventBlock))
+        listeners.append(OptionalListener(listener, action: eventBlock))
     }
     
-    public func addListener(listener: Listener<T>) {
+    public func addListener(listener: OptionalListener<T>) {
         // Bail out if we already have added the listener
         guard hasListener(listener) == false else {
             return
@@ -80,9 +78,9 @@ public class ValueChangedEvent<T> {
         }
     }
     
-    public var oldValue: T
+    public var oldValue: T?
     
-    public func trigger(key: String, newValue: T) {
+    public func trigger(key: String, newValue: T?) {
         clearStaleListeners()
         
         let interestedListeners = listeners.filter { $0.key == nil || $0.key == key }

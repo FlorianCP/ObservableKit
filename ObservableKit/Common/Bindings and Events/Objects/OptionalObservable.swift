@@ -1,17 +1,17 @@
 //
 //  Observable.swift
-//  Loyalty Cards
+//  ObservableKit-iOS
 //
-//  Created by Florian Rath on 30.07.15.
+//  Created by Florian Rath on 17.07.15.
 //  Copyright © 2015 Codepool GmbH. All rights reserved.
 //
 
 import Foundation
 
-public class Observable<T: Equatable> {
+public class OptionalObservable<T: Equatable> {
     
-    private var _value: T
-    public var value: T {
+    private var _value: T?
+    public var value: T? {
         get {
             return _value
         }
@@ -23,15 +23,18 @@ public class Observable<T: Equatable> {
             }
         }
     }
-    public let valueChangedEvent: ValueChangedEvent<T>
+    public let valueChangedEvent = OptionalValueChangedEvent<T>()
     public let key = "value"
     
-    public init(_ initialValue: T) {
+    public init(_ initialValue: T?) {
         _value = initialValue
-        valueChangedEvent = ValueChangedEvent<T>(initialValue)
     }
     
-    public func setValue(newValue: T, forceEventTrigger: Bool) {
+    convenience public init() {
+        self.init(nil)
+    }
+    
+    public func setValue(newValue: T?, forceEventTrigger: Bool) {
         if !forceEventTrigger {
             value = newValue
             return

@@ -1,16 +1,16 @@
 //
 //  Listener.swift
-//  Loyalty Cards
+//  ObservableKit-iOS
 //
-//  Created by Florian Rath on 30.07.15.
+//  Created by Florian Rath on 16.07.15.
 //  Copyright © 2015 Codepool GmbH. All rights reserved.
 //
 
 import Foundation
 
-public class Listener<T> {
+public class OptionalListener<T> {
     
-    public typealias ValueChangedBlock = (oldValue: T, newValue: T) -> Void
+    public typealias ValueChangedBlock = (oldValue: T?, newValue: T?) -> Void
     
     public var key: String? = nil
     public weak var observer: AnyObject?
@@ -28,7 +28,7 @@ public class Listener<T> {
         self.init(key: nil, listener: listener, action: action)
     }
     
-    public func isEqual(otherListener: Listener<T>) -> Bool {
+    public func isEqual(otherListener: OptionalListener<T>) -> Bool {
         return self.hash == otherListener.hash
     }
 }
