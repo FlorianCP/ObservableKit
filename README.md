@@ -28,19 +28,20 @@ It also supports Observable Arrays, e.g. an Array of CLLocation objects.
 
 ## How to observe objects
 
-Creating an observable object is easy. Values of observables are optionals, so they may be nil.
+Creating an observable object is easy. Values of observables are non-optionals, but there are classes for optionals as well. They all begin with a "Optional" prefix, e.g. instead of using "Observable" you can use "OptionalObservable".
+
 ```swift
 // type is automatically inferred
 var canUndo = Observable(false)
 
-// type is specified as Int, the value is at nil
-var anotherVariable = Observable<Int>()
+// type is specified as Int, the value must be set. if you don't want to set a value, use an optional observable (see below).
+var anotherVariable = Observable<Int>(0)
 ```
 
 Creating an observer closure is also plain and simple:
 ```swift
 model.canUndo += Listener(self) { [unowned self] (oldValue, newValue) -> Void in
-  guard let canUndo = newValue else { return } // guard for nil values
+  let canUndo = newValue
   self.undoBarButtonItem.enabled = canUndo
 }
 ```
@@ -71,6 +72,24 @@ canUndo <- routeHistory.count > 0
 ```
 
 In the above example, "setValue(..., forceEventTrigger: true)" forces the value changed event to get triggered, even if the value did not change. If you set the value otherwise to the same value as it alreay is, no events get triggered.
+
+## Optional Observables
+
+Optional observables are similar to the above code, e.g.:
+
+```swift
+// type is specified, default value is nil
+var searchResult = OptionalObservable<CustomDataClass>()
+
+// add an optional listener
+model.searchResult += OptionalListener(self) { [unowned self] (oldValue, newValue) -> Void in
+  guard let result = newValue else { return } // guard for nil values
+  // do something with the new search result
+}
+
+// set the search result to nil
+model.searchResult <- nil
+```
 
 ## How to observe arrays
 
